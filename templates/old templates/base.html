@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Retail Tools</title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    </head>
+{#    <div class="h-screen overflow-hidden bg-gray-100 flex flex-col">#}
+{#        <!-- Navbar -->#}
+{#        {% include 'navbar.html' %}#}
+{#        <div class="min-h-0 flex-1 flex overflow-hidden">#}
+{#            <!-- Sidebar -->#}
+{#            {% include 'sidebar.html' %}#}
+{#            <!-- Main Area -->#}
+{#            <main class="min-w-0 flex-1 border-t border-gray-200 lg:flex">#}
+{#                <!-- Primary Column -->#}
+{#                <section aria-labelledby="primary-heading" class="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last">#}
+{#                    <h1 id="primary-heading" class="sr-only">Home</h1>#}
+{#                    <!-- Your Content -->#}
+{#                </section>#}
+{##}
+{#                <!-- Secondary Column (hidden on smaller screens) -->#}
+{#                <aside class="hidden lg:block lg:flex-shrink-0 lg:order-first">#}
+{#                    <div class="h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100">#}
+{#                        <!-- Your Content -->#}
+{#                    </div>#}
+{#                </aside>#}
+{#            </main>#}
+{#        </div>#}
+{#    </div>#}
+    <body>
+        <div class="flex h-screen">
+            {% include 'sidebar.html' %}
+            <div class="flex flex-wrap py-10 px-6 w-full overflow-y-auto bg-gray-700">
+                {% block content %}
+                {% endblock content %}
+
+                {% block sales_channels %}
+                {% endblock sales_channels %}
+
+                {% block datatable %}
+                {% endblock datatable %}
+            </div>
+        </div>
+{#        <script src="{% static 'js/scripts.js' %}"></script>#}
+    </body>
+</html>

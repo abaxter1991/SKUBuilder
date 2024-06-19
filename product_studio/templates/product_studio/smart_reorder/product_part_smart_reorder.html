@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flex flex-col rounded-lg bg-gray-800 w-full max-w-full max-h-full overflow-x-auto shadow-2xl">
+    <div class="flex flex-col rounded-lg bg-gray-800 w-full h-full overflow-x-auto shadow-2xl">
+        <table id="SalesListTable">
+            <thead id="SalesListTableHeader" class="sticky top-0 bg-cyan-600">
+                <tr>
+                    <th scope="col" class="max-w-full px-6 py-3 text-left rounded-tl-lg"><input id="SalesListMainCheckbox" onclick="javascript:toggleMainCheckbox()" class="form-checkbox h-5 w-5 rounded checked:bg-cyan-600 hover:bg-cyan-600" type="checkbox"></th>
+                    <th scope="col" class="max-w-full p-3 whitespace-nowrap text-left text-xs font-bold text-white uppercase tracking-wider">Customer</th>
+                    <th scope="col" class="max-w-full p-3 whitespace-nowrap text-left text-xs font-bold text-white uppercase tracking-wider">Order Date</th>
+                    <th scope="col" class="max-w-full p-3 whitespace-nowrap text-left text-xs font-bold text-white uppercase tracking-wider">Order Number</th>
+                    <th scope="col" class="max-w-full p-3 whitespace-nowrap text-left text-xs font-bold text-white uppercase tracking-wider">Status</th>
+                    <th scope="col" class="max-w-full p-3 whitespace-nowrap text-left text-xs font-bold text-white uppercase tracking-wider rounded-tr-lg">Sale ID</th>
+                </tr>
+            </thead>
+            <tbody id="SalesListTableBody" class="bg-gray-800 divide-y divide-black">
+                {% for order in orders|dictsort:"OrderDate" %}
+                    <tr class="hover:bg-gray-700">
+                        <td class="px-6">
+                            <input onclick="javascript:toggleCheckbox()" class="form-checkbox h-5 w-5 rounded checked:bg-cyan-600 hover:bg-cyan-600" type="checkbox">
+                        </td>
+                        <td class="whitespace-nowrap font-bold">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.Customer }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.OrderDate|date:"M jS, Y" }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.OrderNumber }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.Status }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.SaleID }}
+                            </div>
+                        </td>
+                    </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function toggleMainCheckbox() {
+        var salesListTableBody = document.getElementById('SalesListTableBody')
+        var salesListMainCheckbox = document.getElementById('SalesListMainCheckbox')
+        var toggleAll = true
+
+        if (salesListMainCheckbox.checked == false) {
+            toggleAll = false
+        }
+
+        var checkboxes = new Array();
+        checkboxes = salesListTableBody.getElementsByTagName('input');
+        
+        for (var i=0; i<checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                checkboxes[i].checked = toggleAll;
+            }
+        }
+    }
+
+    function toggleCheckbox() {
+        var salesListTableBody = document.getElementById('SalesListTableBody')
+        var salesListMainCheckbox = document.getElementById('SalesListMainCheckbox')
+        var toggleMain = true
+
+        var checkboxes = new Array();
+        checkboxes = salesListTableBody.getElementsByTagName('input');
+        
+        for (var i=0; i<checkboxes.length; i++) {
+            if (checkboxes[i].type == 'checkbox') {
+                if (checkboxes[i].checked == false) {
+                    toggleMain = false
+                }
+            }
+        }
+        salesListMainCheckbox.checked = toggleMain
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block content %}
+    <div class="m-8 p-8 bg-gray-800 text-white rounded-2xl shadow-xl">
+        <form class="" action="." method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Create Product" class="text-white bg-blue-500 hover:bg-gray-700 flex-shrink-0 inline-flex items-center justify-center rounded-lg py-2 px-4" />
+        </form>
+    </div>
+    <div class="flex flex-col rounded-lg bg-gray-800 w-full max-w-full max-h-full overflow-x-auto shadow-2xl">
+        <div class="flex flex-col rounded-lg bg-gray-800 w-full h-full overflow-x-auto shadow-2xl">
+            <table>
+                <thead class="sticky top-0 bg-cyan-600">
+                    <tr>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider rounded-tl-lg">Product SKU</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Product Name</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Product Type</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Design Portfolio</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Design</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Product Part</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider">Color</th>
+                        <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-white uppercase tracking-wider rounded-tr-lg">Size</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-800 divide-y divide-black">
+                    {% for product in products %}
+                        <tr class="hover:bg-gray-700">
+                            <td class="whitespace-nowrap font-bold">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.product_sku }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap font-bold">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.product_name }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.product_type }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.design_portfolio }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.design }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.product_part }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.color.get_name }}
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap text-center font-normal">
+                                <div class="p-3 text-xs text-white">
+                                    {{ product.size.get_sku }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="py-2 border-t border-black"></div>
+        </div>
+    </div>
+{% endblock %}

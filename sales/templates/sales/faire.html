@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+
+{% block datatable %}
+    <div class="flex flex-col rounded-lg bg-gray-800 w-full h-full overflow-x-auto shadow-2xl">
+        <table>
+            <thead class="sticky top-0 bg-cyan-600">
+                <tr>
+                    <th scope="col" class="w-2 rounded-tl-lg"></th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Order Status</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Retailer</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Display ID</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Created At</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Updated At</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider">Quantity</th>
+                    <th scope="col" class="max-w-full px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-black uppercase tracking-wider rounded-tr-lg">Order Cost</th>
+                </tr>
+            </thead>
+            <tbody class="bg-gray-800 divide-y divide-black">
+                {% for order in db_orders %}
+                    <tr class="hover:bg-gray-700">
+                        {% if order.status in "DELIVERED" %}
+                            <td class="bg-lime-500">
+                            </td>
+                        {% elif order.status in "PROCESSING" %}
+                            <td class="bg-yellow-500">
+                            </td>
+                        {% elif order.status in "IN_TRANSIT" %}
+                            <td class="bg-yellow-500">
+                            </td>
+                        {% else %}
+                            <td class="bg-gray-400">
+                            </td>
+                        {% endif %}
+                        <td class="whitespace-nowrap text-lowercase font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.status }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap font-bold">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.customer }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap text-center font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.display_id }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap text-center font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.created_at }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap text-center font-normal">
+                            <div class="p-3 text-xs text-white">
+                                {{ order.updated_at }}
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap text-center font-normal">
+                            <div class="p-3 text-xs text-white">
+                                COMING SOON!
+                            </div>
+                        </td>
+                        <td class="whitespace-nowrap text-center font-normal">
+                            <div class="p-3 text-xs text-white">
+                                ${{ order.item_subtotal|div:100|floatformat:2 }}
+                            </div>
+                        </td>
+                    </tr>
+{#                    <div class="bg-gray-900">#}
+{#                        <div class="whitespace-nowrap text-center font-normal">#}
+{#                            <div class="p-3 text-xs text-white">#}
+{#                                Test Row Expansion#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="py-2 border-t border-black"></div>
+    </div>
+{% endblock datatable %}
