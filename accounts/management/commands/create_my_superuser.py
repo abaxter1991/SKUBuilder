@@ -16,7 +16,7 @@ class Command(BaseCommand):
         if not settings.DEBUG:
             media_base_path = 'media/'
 
-        profile_picture_path = f'{media_base_path}images/profile_pictures/_SuperUser_Default_ProfilePicture.jpg'
+        profile_picture_path = f'{media_base_path}images/profile_pictures/profile_picture_0'
 
         first_name = 'Austin'
         last_name = 'Baxter'
